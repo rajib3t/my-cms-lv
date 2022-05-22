@@ -34,7 +34,7 @@
             <h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder opacity-6">{{ __('ACL') }}</h6>
         </li>
         <li class="nav-item">
-            <a data-bs-toggle="collapse" href="#acl" class="nav-link {{ NavHelper::navActive($route,['admin.role.list','admin.role.create']) }}" aria-controls="acl" role="button" aria-expanded="{{ NavHelper::navExpand($route,['admin.role.list','admin.role.create']) }}">
+            <a data-bs-toggle="collapse" href="#acl" class="nav-link {{ NavHelper::navActive($route,['admin.role.list','admin.role.create','admin.role.edit','admin.permission.list','admin.permission.create','admin.permission.edit','admin.role.add_permission','admin.permission.add_role','admin.permission.edit']) }}" aria-controls="acl" role="button" aria-expanded="{{ NavHelper::navExpand($route,['admin.role.list','admin.role.create','admin.role.edit','admin.role.add_permission','admin.permission.add_role']) }}">
                 <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
                     <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	                    viewBox="0 0 511.996 511.996" style="enable-background:new 0 0 511.996 511.996;" xml:space="preserve">
@@ -48,14 +48,14 @@
                 </div>
                 <span class="nav-link-text ms-1">{{ __('ACL') }}</span>
             </a>
-            <div class="collapse {{ NavHelper::navOpen($route,['admin.role.list','admin.role.create','admin.role.edit']) }}" id="acl" style="">
+            <div class="collapse {{ NavHelper::navOpen($route,['admin.role.list','admin.role.create','admin.role.edit','admin.role.add_permission','admin.permission.list','admin.permission.create','admin.permission.edit','admin.permission.add_role']) }}" id="acl" style="">
                 <ul class="nav ms-4 ps-3">
                     <li class="nav-item  ">
-                        <a class="nav-link {{ NavHelper::navActive($route,['admin.role.list','admin.role.create','admin.role.edit']) }}" data-bs-toggle="collapse" aria-expanded="{{ NavHelper::navExpand($route,['admin.role.list','admin.role.create']) }}" href="#roles">
+                        <a class="nav-link {{ NavHelper::navActive($route,['admin.role.list','admin.role.create','admin.role.edit','admin.role.add_permission']) }}" data-bs-toggle="collapse" aria-expanded="{{ NavHelper::navExpand($route,['admin.role.list','admin.role.create','admin.role.edit','admin.role.add_permission']) }}" href="#roles">
 
                             <span class="sidenav-normal">{{ __('Roles') }}</span>
                         </a>
-                        <div class="collapse {{ NavHelper::navOpen($route,['admin.role.list','admin.role.create','admin.role.edit']) }}" id="roles" style="">
+                        <div class="collapse {{ NavHelper::navOpen($route,['admin.role.list','admin.role.create','admin.role.edit','admin.role.add_permission']) }}" id="roles" style="">
                             <ul class="nav nav-sm flex-column">
                                 @can('role.list')
                                     <li class="nav-item">
@@ -67,6 +67,31 @@
                                 @can('role.create')
                                     <li class="nav-item">
                                         <a class="nav-link {{ NavHelper::linkActive($route,'admin.role.create') }}" href="{{ route('admin.role.create') }}"  >
+                                            {{ __('Create') }}
+                                        </a>
+                                    </li>
+                                @endcan
+
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item  ">
+                        <a class="nav-link {{ NavHelper::navActive($route,['admin.permission.list','admin.permission.create','admin.permission.edit','admin.permission.add_role']) }}" data-bs-toggle="collapse" aria-expanded="{{ NavHelper::navExpand($route,['admin.permission.list','admin.permission.create','admin.permission.edit','admin.permission.add_role']) }}" href="#permissions">
+
+                            <span class="sidenav-normal">{{ __('Permission') }}</span>
+                        </a>
+                        <div class="collapse {{ NavHelper::navOpen($route,['admin.permission.list','admin.permission.create','admin.permission.edit','admin.permission.add_role']) }}" id="permissions" style="">
+                            <ul class="nav nav-sm flex-column">
+                                @can('role.list')
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ NavHelper::linkActive($route,'admin.permission.list') }}" href="{{ route('admin.permission.list') }}"  >
+                                            {{ __('List') }}
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('role.create')
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ NavHelper::linkActive($route,'admin.permission.create') }}" href="{{ route('admin.permission.create') }}"  >
                                             {{ __('Create') }}
                                         </a>
                                     </li>

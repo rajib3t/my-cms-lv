@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\CreateRole;
 use Spatie\Permission\Models\Role;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateRoleRequest;
+use Spatie\Permission\Models\Permission;
+
 
 class RoleController extends Controller
 {
@@ -25,7 +26,7 @@ class RoleController extends Controller
         $this->gourds  = $guards;
     }
     /**
-     * Display a listing of the resource.
+     * Display a listing of the roles.
      *
      * @return \Illuminate\Http\Response
      */
@@ -36,7 +37,7 @@ class RoleController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new role.
      *
      * @return \Illuminate\Http\Response
      */
@@ -71,13 +72,13 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
+    // public function show($id)
+    // {
+    //     //
+    // }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified role.
      *
      * @param  int  $id
      * @return \Illuminate\View\View
@@ -86,11 +87,12 @@ class RoleController extends Controller
     {
         $guards = $this->gourds;
         $role = Role::find($id);
-        return view('admin.acl.roles.edit',compact('guards','role'));
+        $permissions = $role->permissions()->get();
+        return view('admin.acl.roles.edit',compact('guards','role','permissions'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified role in storage.
      *
      * @param  \App\Http\Requests\UpdateRoleRequest  $request
      * @param  int  $id
@@ -110,7 +112,7 @@ class RoleController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified role from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
@@ -124,4 +126,74 @@ class RoleController extends Controller
             return redirect()->route('admin.role.list')->with('error','Role not deleted');
         }
     }
+    /**
+     * view add permissions to specific role
+     *
+     * @param int $id
+     * @return \Illuminate\View\View
+     */
+    public function add_permission($id)
+    {
+
+        $role = Role::find($id);
+        $permissions = Permission::all();
+        return view('admin.acl.roles.add_permission',compact('role','permissions'));
+    }
+    /**
+     * add permissions to specific role
+     *
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store_permission(Request $request,$id)
+    {
+        $role = Role::find($id);
+        $permissions = $request->permissions;
+        $res = $role->syncPermissions($permissions);
+        if($res){
+            return redirect()->route('admin.role.add_permission',$id)->with('success','Permissions added successfully');
+        }else{
+            return redirect()->route('admin.role.add_permission',$id)->with('error','Permissions not added');
+        }
+    }
+
+    /**
+     * to remove permission to specific role
+     *
+     * @param int $id
+     * @param int $permission_id
+     * @return \Illuminate\View\View
+     */
+    public function remove_permission($id,$permission_id){
+        $role = Role::find($id);
+        $res = $role->revokePermissionTo($permission_id);
+        if($res){
+            return redirect()->route('admin.role.add_permission',$id)->with('success','Permission removed successfully');
+        }else{
+            return redirect()->route('admin.role.add_permission',$id)->with('error','Permission not removed');
+        }
+
+    }
+
+    /**
+    * Add Single Permission to Role
+    *
+    * @param int $role_id
+    * @param int $permission_id
+    * @return @return \Illuminate\Http\RedirectResponse
+    */
+   public function add_single_permission($role_id,$permission_id)
+   {
+        $role = Role::find($role_id);
+        $res = $role->givePermissionTo($permission_id);
+        if($res){
+            return redirect()->route('admin.role.add_permission',$role_id)
+            ->with('success','Permission added successfully');
+        }else{
+            return redirect()->route('admin.role.add_permission',$role_id)
+            ->with('error','Somthing is wrong...');
+        }
+   }
 }

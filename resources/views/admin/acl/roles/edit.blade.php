@@ -5,6 +5,14 @@
     <div class="row mt-4">
         <div class="col-lg-12 mb-lg-0 mb-4">
             <div class="card">
+                <div class="card-header pb-0">
+                    <div class="row">
+                        <h6 class="col  d-flex flex-row ">{{ __('Role : ') }}{{ $role->name }}</h6>
+                        <a href="{{ route('admin.role.add_permission',$role->id) }}" class="text-info col  d-flex flex-row-reverse">{{ __('Add Permissions') }}</a>
+                    </div>
+
+
+                </div>
                 <div class="card-body p-3">
                     {{ Form::model($role,['route'=>['admin.role.update',$role->id],'method'=>'POST']) }}
                         <div class="row">
@@ -21,12 +29,55 @@
                                 </div>
                             </div>
                         </div>
-                        {{ Form::submit('Save',['class'=>'btn btn-primary']) }}
+                        {{ Form::submit('Update',['class'=>'btn btn-primary']) }}
                     {{ Form::close() }}
                 </div>
             </div>
         </div>
 
+    </div>
+    <div class="row mt-4">
+        <div class="col-lg-12 mb-lg-0 mb-4">
+            <div class="card">
+                <div class="card-header pb-0">
+                    <div class="row">
+                        <h6 class="col  d-flex flex-row ">{{ $role->name }} {{ 'has permission' }}</h6>
+
+                    </div>
+
+
+                </div>
+                <div class="card-body p-3">
+                    <div class="table-responsive p-0">
+                        <table class="table align-items-center mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="text-secondary   font-weight-bolder" scope="col">{{ __('Name') }}</th>
+
+                                    <th class="text-secondary   font-weight-bolder" scope="col">{{ __('Description') }}</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($permissions as $item)
+                                    <tr>
+                                        <td class="text-secondary font-weight-bolder">{{ $item->name }}</td>
+                                        <td class="text-secondary ">
+                                            @php($detail = App\Models\PermissionDetail::where('permission_id',$item->id)->first())
+                                            {{ $detail->description }}
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="2">{{ __('No permission') }}</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     @push('css')
         {{ Html::style('admin-design/assets/css/pnotify.css') }}

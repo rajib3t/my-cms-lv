@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\Auth\AdminLoginController;
 use App\Http\Controllers\Admin\Auth\AdminResetPasswordController;
 use App\Http\Controllers\Admin\Auth\AdminForgetPasswordController;
@@ -67,6 +68,44 @@ Route::group(['as' => 'admin.'],  function() {
             ->name('update')->middleware(['role:Super Admin','permission:role.update']);
             Route::get('/delete/{id}','destroy')
             ->name('delete')->middleware(['role:Super Admin','permission:role.delete']);
+            Route::get('/add-permission/{id}','add_permission')
+            ->name('add_permission')->middleware(['role:Super Admin','permission:role.add_permission']);
+            Route::post('/store-permission/{id}','store_permission')
+            ->name('store_permission')->middleware(['role:Super Admin','permission:role.store_permission']);
+            Route::get('/remove-permission/{id}/{permission_id}','remove_permission')
+            ->name('remove_permission')->middleware(['role:Super Admin','permission:role.remove_permission']);
+            Route::get('/add-single-permissiob/{id}/{permission_id}','add_single_permission')
+            ->name('add_single_permission')->middleware(['role:Super Admin','permission:role.add_single_permission']);
+        });
+        /**
+         * Permissions
+         * Add,List,Edit,Add Roles to Permissions
+         */
+        Route::group([
+            'as'=>'permission.',
+            'prefix'=>'permissions',
+            'controller'=>PermissionController::class
+        ],function(){
+            Route::get('/','index')
+            ->name('list')->middleware(['role:Super Admin','permission:permission.list']);
+            Route::get('/create','create')
+            ->name('create')->middleware(['role:Super Admin','permission:permission.create']);
+            Route::post('/store','store')
+            ->name('store')->middleware(['role:Super Admin','permission:permission.store']);
+            Route::get('/edit/{id}','edit')
+            ->name('edit')->middleware(['role:Super Admin','permission:permission.edit']);
+            Route::post('/update/{id}','update')
+            ->name('update')->middleware(['role:Super Admin','permission:permission.update']);
+            Route::get('/delete/{id}','destroy')
+            ->name('delete')->middleware(['role:Super Admin','permission:permission.delete']);
+            Route::get('/add-role/{id}','add_role')
+            ->name('add_role')->middleware(['role:Super Admin','permission:permission.add_role']);
+            Route::post('/store-role/{id}','store_role')
+            ->name('store_role')->middleware(['role:Super Admin','permission:permission.store_role']);
+            Route::get('/remove-role/{id}/{role_id}','remove_role')
+            ->name('remove_role')->middleware(['role:Super Admin','permission:permission.remove_role']);
+            Route::get('/add-single-role/{id}/{role_id}','add_single_role')
+            ->name('add_single_role')->middleware(['role:Super Admin','permission:permission.add_single_role']);
         });
     });
 });
