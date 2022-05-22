@@ -14,8 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-   echo 123;
-   //return view('welcome');
+   //echo 123;
+   return view('web.home');
 });
 
 Auth::routes();
