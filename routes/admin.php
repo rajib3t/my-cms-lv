@@ -3,10 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\Auth\AdminLoginController;
 use App\Http\Controllers\Admin\Auth\AdminResetPasswordController;
 use App\Http\Controllers\Admin\Auth\AdminForgetPasswordController;
+use Spatie\Permission\Contracts\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -106,6 +108,26 @@ Route::group(['as' => 'admin.'],  function() {
             ->name('remove_role')->middleware(['role:Super Admin','permission:permission.remove_role']);
             Route::get('/add-single-role/{id}/{role_id}','add_single_role')
             ->name('add_single_role')->middleware(['role:Super Admin','permission:permission.add_single_role']);
+        });
+        /**
+         * Users admin
+         * Add,List,Edit,Add Roles to Users
+         */
+        Route::group([
+            'as'=>'user.admin.',
+            'prefix'=>'users/admins',
+            'controller'=>AdminUserController::class,
+        ],function(){
+            Route::get('/','index')
+            ->name('list')->middleware(['role:Super Admin','permission:user.admin.list']);
+            Route::get('/create','create')
+            ->name('create')->middleware(['role:Super Admin','permission:user.admin.create']);
+            Route::post('/store','store')
+            ->name('store')->middleware(['role:Super Admin','permission:user.admin.store']);
+            Route::get('/edit/{id}','edit')
+            ->name('edit')->middleware(['role:Super Admin','permission:user.admin.edit']);
+            Route::post('/update/{id}','update')
+            ->name('update')->middleware(['role:Super Admin','permission:user.admin.update']);
         });
     });
 });

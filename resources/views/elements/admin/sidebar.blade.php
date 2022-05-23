@@ -1,7 +1,7 @@
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 " id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-      <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/soft-ui-dashboard/pages/dashboard.html " target="_blank">
+      <a class="navbar-brand m-0" href="{{ route('admin.dashboard') }}">
         <img src="{{ asset('admin-design/assets/img/ssssevaorg-logo-white.png') }}" class="navbar-brand-img h-100" alt="main_logo">
         <span class="ms-1 font-weight-bold">{{ __('SSSSOWB') }}</span>
       </a>
@@ -29,6 +29,79 @@
             </div>
             <span class="nav-link-text ms-1">{{ __('Dashboard') }}</span>
           </a>
+        </li>
+        <li class="nav-item mt-3">
+            <h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder opacity-6">{{ __('Users') }}</h6>
+        </li>
+        <li class="nav-item">
+            <a data-bs-toggle="collapse" href="#users" class="nav-link {{ NavHelper::navActive($route,['admin.user.admin.list','admin.user.admin.create','admin.user.admin.edit']) }}" aria-controls="users" role="button" aria-expanded="{{ NavHelper::navExpand($route,['admin.user.admin.list','admin.user.admin.create','admin.user.admin.edit']) }}">
+                <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
+                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	                    viewBox="0 0 511.996 511.996" style="enable-background:new 0 0 511.996 511.996;" xml:space="preserve">
+                            <path d="M461.832,3.145c-11.109-5.328-24.266-3.797-33.891,3.922c-39.984,32.141-111.953,32.125-151.875,0.016
+                            c-11.719-9.438-28.406-9.422-40.125-0.016C195.975,39.207,123.975,39.191,84.07,7.082C74.459-0.652,61.26-2.184,50.193,3.145
+                            C39.086,8.457,32.008,19.691,32.008,32.004l-0.016,256c0,100.297,80.406,183.555,215.078,222.727
+                            c2.92,0.844,5.918,1.266,8.938,1.266c3.012,0,6.016-0.422,8.938-1.266c134.668-39.172,215.059-122.414,215.059-222.727v-256
+                            C480.004,19.691,472.941,8.457,461.832,3.145z M416.004,256.004H255.99v190.578C155.602,415.066,95.992,356.215,96.008,288.004v-32
+                            H255.99V70.754h0.018c45.84,26.922,108.686,32.391,159.996,14.688V256.004z"/>
+                    </svg>
+                </div>
+                <span class="nav-link-text ms-1">{{ __('Users') }}</span>
+            </a>
+            <div class="collapse {{ NavHelper::navOpen($route,['admin.user.admin.list','admin.user.admin.create','admin.user.admin.edit']) }}" id="users" style="">
+                <ul class="nav ms-4 ps-3">
+                    <li class="nav-item  ">
+                        <a class="nav-link {{ NavHelper::navActive($route,['admin.user.admin.list','admin.user.admin.create','admin.user.admin.edit']) }}" data-bs-toggle="collapse" aria-expanded="{{ NavHelper::navExpand($route,['admin.user.admin.list','admin.user.admin.create','admin.user.admin.edit']) }}" href="#admins">
+
+                            <span class="sidenav-normal">{{ __('Admins') }}</span>
+                        </a>
+                        <div class="collapse {{ NavHelper::navOpen($route,['admin.user.admin.list','admin.user.admin.create','admin.user.admin.edit']) }}" id="admins" style="">
+                            <ul class="nav nav-sm flex-column">
+
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ NavHelper::linkActive($route,'admin.user.admin.list') }}" href="{{ route('admin.user.admin.list') }}"  >
+                                            {{ __('List') }}
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ NavHelper::linkActive($route,'admin.user.admin.create') }}" href="{{ route('admin.user.admin.create') }}"  >
+                                            {{ __('Create') }}
+                                        </a>
+                                    </li>
+
+
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item  ">
+                        <a class="nav-link {{ NavHelper::navActive($route,['admin.permission.list','admin.permission.create','admin.permission.edit','admin.permission.add_role']) }}" data-bs-toggle="collapse" aria-expanded="{{ NavHelper::navExpand($route,['admin.permission.list','admin.permission.create','admin.permission.edit','admin.permission.add_role']) }}" href="#permissions">
+
+                            <span class="sidenav-normal">{{ __('Permission') }}</span>
+                        </a>
+                        <div class="collapse {{ NavHelper::navOpen($route,['admin.permission.list','admin.permission.create','admin.permission.edit','admin.permission.add_role']) }}" id="permissions" style="">
+                            <ul class="nav nav-sm flex-column">
+                                @can('role.list')
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ NavHelper::linkActive($route,'admin.permission.list') }}" href="{{ route('admin.permission.list') }}"  >
+                                            {{ __('List') }}
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('role.create')
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ NavHelper::linkActive($route,'admin.permission.create') }}" href="{{ route('admin.permission.create') }}"  >
+                                            {{ __('Create') }}
+                                        </a>
+                                    </li>
+                                @endcan
+
+                            </ul>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
         </li>
         <li class="nav-item mt-3">
             <h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder opacity-6">{{ __('ACL') }}</h6>
