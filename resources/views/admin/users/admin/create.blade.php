@@ -16,7 +16,7 @@
 
                 </div>
                 <div class="card-body ">
-                    {{ Form::open(['route'=>'admin.user.admin.store','method'=>'POST']) }}
+                    {{ Form::open(['route'=>'admin.user.admin.store','method'=>'POST','id'=>'create_user']) }}
                         <div class="row p-2">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -62,12 +62,112 @@
                             </div>
 
                         </div>
-                        {{ Form::submit('Submit',['class'=>'btn btn-primary pl-2']) }}
+                        {{ Form::submit('Submit',['class'=>'btn btn-primary pl-2','id'=>'create_user_btn']) }}
                     {{ Form::close() }}
                 </div>
             </div>
         </div>
     </div>
+    @push('js-vendor')
+        {{ Html::script('admin-design/assets/js/just-validate.production.min.js') }}
+    @endpush
+    @push('js')
+        <script>
+            const createUser = ()=>{
+                document.getElementById('create_user_btn').addEventListener('click',()=>{
+                    const validation = new JustValidate('#create_user', {
+                                errorFieldCssClass: 'is-invalid',
+                                successFieldCssClass:'is-valid'
+                            });
+                        validation
+                            .addField('#firstname', [
+                                {
+                                    rule: 'required',
+                                },
+                                {
+                                    rule:'customRegexp',
+                                    value: /^[a-zA-Z]*$/,
+                                }
+                            ])
+                            .addField('#lastname', [
+                                {
+                                    rule: 'required',
+                                },
+                                {
+                                    rule:'customRegexp',
+                                    value: /^[a-zA-Z]*$/,
+                                }
+                            ])
+                            .addField('#email', [
+                                {
+                                    rule: 'required',
+                                },
+                                {
+                                    rule:'email',
+
+                                }
+                            ])
+                            .addField('#mobile', [
+                                {
+                                    rule: 'required',
+                                },
+                                {
+                                    rule:'customRegexp',
+                                    value: /^[0-9]*$/,
+                                },
+                                {
+                                    rule:'minLength',
+                                    value: 10,
+                                },
+                                {
+                                    rule:'maxLength',
+                                    value: 12,
+                                }
+                            ])
+                            .addField('#role', [
+                                {
+                                    rule: 'required',
+                                }
+                            ])
+                            .addField('#password', [
+                                {
+                                    rule: 'required',
+                                },
+                                {
+                                    rule:'password',
+                                },
+
+                            ])
+                            .addField('#password_confirmation', [
+                                {
+                                    rule: 'required',
+                                },
+                                {
+                                    rule:'password',
+                                },
+                                {
+                                validator: (value, fields) => {
+                                if (fields['#password'] && fields['#password'].elem) {
+                                    const repeatPasswordValue = fields['#password'].elem.value;
+
+                                    return value === repeatPasswordValue;
+                                }
+
+                                return true;
+                                },
+                                errorMessage: 'Passwords should be the same',
+                            },
+
+                            ])
+                            .onSuccess((event)=>{
+                            document.getElementById('create_user').submit();
+
+                        })
+                })
+            }
+            createUser();
+        </script>
+    @endpush
 
 </x-admin-layout>
 

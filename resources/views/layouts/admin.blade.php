@@ -20,7 +20,11 @@
     {{ Html::script('https://kit.fontawesome.com/42d5adcbca.js',['crossorigin'=>'anonymous']) }}
     {{-- CSS Style --}}
     {{ Html::style('admin-design/assets/css/soft-ui-dashboard.css',['media'=>false,'ver'=>'1.0']) }}
-    {{-- Page Specific CSS --}}
+    {{-- CSS Vendor --}}
+    @stack('css-vendor')
+    {{-- Page Specific CSS Script--}}
+
+
     @stack('css')
     @php
         $route = Route::currentRouteName()
@@ -64,7 +68,9 @@
     {{ Html::script('admin-design/assets/js/core/bootstrap.min.js') }}
     {{ Html::script('admin-design/assets/js/plugins/perfect-scrollbar.min.js') }}
     {{ Html::script('admin-design/assets/js/plugins/smooth-scrollbar.min.js') }}
-    {{-- Page Specific JS --}}
+    {{-- JS Vendor --}}
+    @stack('js-vendor')
+    {{-- Page Specific JS Script--}}
     @stack('js')
 </body>
 </html>

@@ -11,8 +11,8 @@
                 <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto">
                   <div class="card card-plain mt-8">
                     <div class="card-header pb-0 text-left bg-transparent">
-                      <h3 class="font-weight-bolder text-info text-gradient">Welcome back</h3>
-                      <p class="mb-0">Enter your email and password to sign in</p>
+                      <h3 class="font-weight-bolder text-info text-gradient">{{ __('Welcome back') }}</h3>
+                      <p class="mb-0">{{ __('Enter your email and password to sign in') }}</p>
                     </div>
                     <div class="card-body">
                         @if($errors->any())
@@ -20,7 +20,7 @@
                                 {{$errors->first()}}
                             </div>
                         @endif
-                        {{ Form::open(['route'=>'admin.authenticate','method'=>'POST','role'=>'form']) }}
+                        {{ Form::open(['route'=>'admin.authenticate','method'=>'POST','role'=>'form','id'=>'login']) }}
                             {{ Form::label('email','Email') }}
 
                             <div class="mb-3">
@@ -37,7 +37,8 @@
 
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn bg-gradient-info w-100 mt-4 mb-0">Sign in</button>
+                              {{ Form::submit('Login',['class'=>'btn bg-gradient-info w-100 mt-4 mb-0','id'=>'loginbtn']) }}
+
                             </div>
                         {{ Form::close() }}
                     </div>
@@ -66,7 +67,7 @@
           <div class="row">
             <div class="col-8 mx-auto text-center mt-1">
               <p class="mb-0 text-secondary">
-                Copyright © <script>
+                {{ __('Copyright') }} {{ __('©') }} <script>
                   document.write(new Date().getFullYear())
                 </script> {{ config('app.name', 'Laravel') }}
               </p>
@@ -74,4 +75,47 @@
           </div>
         </div>
       </footer>
+      @push('js-vendor')
+          {{ Html::script('admin-design/assets/js/just-validate.production.min.js') }}
+      @endpush
+      @push('js')
+         <script>
+             const saveEndpoit = ()=>{
+                document.getElementById('loginbtn').addEventListener('click',()=>{
+
+                    const validation = new JustValidate('#login', {
+                                errorFieldCssClass: 'is-invalid',
+                                successFieldCssClass:'is-valid'
+                            });
+                    //console.log(validation)
+                    validation
+                        .addField('#email', [
+                            {
+                                rule: 'required',
+                            },
+                            {
+                              rule:'email'
+                            }
+                        ])
+                        .addField('#password',[
+                            {
+                                rule:'required'
+                            }
+
+
+                        ])
+                        .onSuccess((event)=>{
+                            document.getElementById('login').submit();
+
+                        })
+                        .onFail((fields)=>{
+                            console.log(fields)
+
+                        });
+                })
+            }
+            saveEndpoit();
+
+             </script>
+      @endpush
 </x-admin-layout>

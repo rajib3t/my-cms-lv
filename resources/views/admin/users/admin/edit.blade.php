@@ -16,8 +16,8 @@
 
                 </div>
                 <div class="card-body ">
-                    {{ Form::model($user,['route'=>['admin.user.admin.update',$user->id],'method'=>'POST']) }}
-                    @php($name= explode(' ',$user->name));
+                    {{ Form::model($user,['route'=>['admin.user.admin.update',$user->id],'method'=>'POST','id'=>'edit_user']) }}
+                    @php($name= explode(' ',$user->name))
 
 
                         <div class="row p-2">
@@ -54,18 +54,86 @@
 
 
                         </div>
-                        {{ Form::submit('Update',['class'=>'btn btn-primary pl-2']) }}
+                        {{ Form::submit('Update',['class'=>'btn btn-primary pl-2','id'=>'edit_user_btn']) }}
                     {{ Form::close() }}
                 </div>
             </div>
         </div>
     </div>
-    @push('css')
+    @push('css-vendor')
         {{ Html::style('admin-design/assets/css/pnotify.css') }}
     @endpush
-    @push('js')
+   @push('js-vendor')
         {{ Html::script('admin-design/assets/js/pnotify.js') }}
+        {{ Html::script('admin-design/assets/js/just-validate.production.min.js') }}
+   @endpush
+    @push('js')
+        <script>
+            const editUser = ()=>{
+                document.getElementById('edit_user_btn').addEventListener('click',()=>{
+                    const validation = new JustValidate('#edit_user', {
+                                errorFieldCssClass: 'is-invalid',
+                                successFieldCssClass:'is-valid'
+                            });
+                            validation
+                            .addField('#firstname', [
+                                {
+                                    rule: 'required',
+                                },
+                                {
+                                    rule:'customRegexp',
+                                    value: /^[a-zA-Z]*$/,
+                                }
+                            ])
+                            .addField('#lastname', [
+                                {
+                                    rule: 'required',
+                                },
+                                {
+                                    rule:'customRegexp',
+                                    value: /^[a-zA-Z]*$/,
+                                }
+                            ])
+                            .addField('#email', [
+                                {
+                                    rule: 'required',
+                                },
+                                {
+                                    rule:'email',
 
+                                }
+                            ])
+                            .addField('#mobile', [
+                                {
+                                    rule: 'required',
+                                },
+                                {
+                                    rule:'customRegexp',
+                                    value: /^[0-9]*$/,
+                                },
+                                {
+                                    rule:'minLength',
+                                    value: 10,
+                                },
+                                {
+                                    rule:'maxLength',
+                                    value: 12,
+                                }
+                            ])
+                            .addField('#role', [
+                                {
+                                    rule: 'required',
+                                }
+                            ])
+                            .onSuccess((event)=>{
+                                document.getElementById('edit_user').submit();
+
+                        })
+
+                });
+            }
+            editUser();
+            </script>
 
 
                 @if(Session::has('success'))
