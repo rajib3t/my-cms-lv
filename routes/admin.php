@@ -1,14 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Spatie\Permission\Contracts\Role;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\Auth\AdminLoginController;
 use App\Http\Controllers\Admin\Auth\AdminResetPasswordController;
 use App\Http\Controllers\Admin\Auth\AdminForgetPasswordController;
-use Spatie\Permission\Contracts\Role;
+use App\Http\Controllers\Admin\Auth\AdminConfirmPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,10 +43,19 @@ Route::group(['as' => 'admin.'],  function() {
     ->name('password.reset');
     Route::post('/reset-password',[AdminResetPasswordController::class,'reset'])
     ->name('password.update');
+    Route::post('logout',[AdminLoginController::class,'logout'])
+    ->name('logout');
     Route::group(['middleware'=> ['auth:admin']],function () {
         Route::get('/',[AdminController::class,'dashboard'])
         ->name('dashboard');
-
+         /**
+         * Confirm Password
+         */
+        Route::get('/confirm-password',[AdminConfirmPasswordController::class,'confirmPassword'])
+        ->name('password.confirm');
+        Route::post('/confirm-password',[AdminConfirmPasswordController::class,'confirmPasswordAuthenticate'])
+        ->name('password.confirm.auth')
+        ->middleware('throttle:6,1');
         /**
          * ACL
          * Included Roles, Permission and ACL Setting
@@ -128,6 +139,35 @@ Route::group(['as' => 'admin.'],  function() {
             ->name('edit')->middleware(['role:Super Admin','permission:user.admin.edit']);
             Route::post('/update/{id}','update')
             ->name('update')->middleware(['role:Super Admin','permission:user.admin.update']);
+            Route::get('/password-change/{id}','password_change')
+            ->name('password.change')->middleware(['role:Super Admin','permission:user.admin.password.change']);
+            Route::post('/password-update/{id}','password_update')
+            ->name('password.update')->middleware(['role:Super Admin','permission:user.admin.password.update']);
+            Route::get('/delete/{id}','destroy')
+            ->name('delete')->middleware(['role:Super Admin','permission:user.admin.delete']);
+            Route::get('trash','trash')
+            ->name('trash')->middleware(['role:Super Admin','permission:user.admin.trash']);
+            Route::get('/restore/{id}','restore')
+            ->name('restore')->middleware(['role:Super Admin','permission:user.admin.restore']);
+        });
+
+        /**
+         * Logged in user profile
+         * Add,List,Edit,Add Roles to Users
+         */
+        Route::group([
+            'as'=>'user.admin.',
+            'prefix'=>'users/admin/',
+            'controller'=>ProfileController::class,
+        ],function(){
+            Route::get('/profile','profile')
+            ->name('profile')->middleware(['password.confirm:admin.password.confirm']);
+            Route::post('/profile-update/{id}','profile_update')
+            ->name('profile.update')->middleware(['password.confirm:admin.password.confirm']);
+            Route::get('/profile/password-change','change_password')
+            ->name('profile.password.change')->middleware(['password.confirm:admin.password.confirm']);
+            Route::post('/profile/password-update','update_password')
+            ->name('profile.password.update')->middleware(['password.confirm:admin.password.confirm']);
         });
     });
 });

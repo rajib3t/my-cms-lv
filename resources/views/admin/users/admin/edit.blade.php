@@ -9,7 +9,7 @@
                 <div class="card-header pb-0">
                     <div class="row">
                         <h6 class="col  d-flex flex-row ">{{ __('Edit Admin User') }}</h6>
-                        <a href="{{ route('admin.user.admin.list') }}" class="text-info col  d-flex flex-row-reverse"><span>{{ __('Admin User List') }}</span></a>
+                        <a href="{{ route('admin.user.admin.password.change',$user->id) }}" class="text-info col  d-flex flex-row-reverse"><span>{{ __('Password Change') }}</span></a>
 
                     </div>
 
@@ -61,12 +61,14 @@
         </div>
     </div>
     @push('css-vendor')
+
         {{ Html::style('admin-design/assets/css/pnotify.css') }}
+        {{ Html::style('admin-design/assets/css/BrightTheme.css') }}
     @endpush
-   @push('js-vendor')
+    @push('js-vendor')
         {{ Html::script('admin-design/assets/js/pnotify.js') }}
         {{ Html::script('admin-design/assets/js/just-validate.production.min.js') }}
-   @endpush
+    @endpush
     @push('js')
         <script>
             const editUser = ()=>{
@@ -126,7 +128,10 @@
                                 }
                             ])
                             .onSuccess((event)=>{
-                                document.getElementById('edit_user').submit();
+                                setTimeout(() => {
+                                    document.getElementById('edit_user').submit();
+                                }, 2000);
+
 
                         })
 

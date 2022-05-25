@@ -9,7 +9,7 @@
                 <div class="card-header pb-0">
                     <div class="row">
                         <h6 class="col  d-flex flex-row ">{{ __('Admin User List') }}</h6>
-                        <a href="{{ route('admin.user.admin.create') }}" class="text-info col  d-flex flex-row-reverse"><i class="ni ni-fat-add"></i><span>{{ __('Add Admin User') }}</span></a>
+                        <a href="{{ route('admin.user.admin.list') }}" class="text-info col  d-flex flex-row-reverse"><span>{{ __('Admin User List') }}</span></a>
                     </div>
 
 
@@ -38,17 +38,10 @@
                                             {!! implode(',',$roles) !!}
                                         </td>
                                         <td class="align-middle  text-sm">
-                                            @if ($item->id == Auth::guard('admin')->user()->id)
-                                                <a href="{{ route('admin.user.admin.profile') }}" class="p-1 text-secondary font-weight-bold text-xs text-info" data-bs-toggle="tooltip" data-bs-placement="top" title="Profile"><i class="ni ni-user-run"></i></a>
-                                                <a href="{{ route('admin.user.admin.profile') }}" class="p-1 text-secondary font-weight-bold text-xs text-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Change Password"><i class="ni ni-settings"></i></a>
-                                            @else
-                                                <a href="{{ route('admin.user.admin.edit',$item->id) }}" class="p-1 text-secondary font-weight-bold text-xs text-info"  data-bs-toggle="tooltip" data-bs-placement="top" title="Edit User"><i class="ni ni-book-bookmark"></i></a>
-                                                <a href="{{ route('admin.user.admin.password.change',$item->id) }}" class="p-1 text-secondary font-weight-bold text-xs text-success"  data-bs-toggle="tooltip" data-bs-placement="top" title="Change Password"><i class="ni ni-settings"></i></a>
-                                                <a href="{{ route('admin.user.admin.delete',$item->id) }}" class="p-1 text-secondary font-weight-bold text-xs text-danger"  data-bs-toggle="tooltip" data-bs-placement="top" title="Delete User"><i class="ni ni-fat-remove"></i></a>
+                                            @if ($item->id != 1)
+                                                <a href="{{ route('admin.user.admin.restore',$item->id) }}" class="p-1 text-secondary font-weight-bold text-xs text-info"  data-bs-toggle="tooltip" data-bs-placement="top" title="Restore"><i class="ni ni-curved-next"></i></a>
+
                                             @endif
-
-
-
                                         </td>
                                     </tr>
                                 @empty

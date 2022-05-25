@@ -50,6 +50,9 @@
         @case('admin.password.reset')
             {{ $slot }}
             @break
+        @case('admin.password.confirm')
+            {{ $slot }}
+            @break
         @default
             @include('elements.admin.sidebar')
                 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
@@ -72,5 +75,11 @@
     @stack('js-vendor')
     {{-- Page Specific JS Script--}}
     @stack('js')
+    <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
 </body>
 </html>

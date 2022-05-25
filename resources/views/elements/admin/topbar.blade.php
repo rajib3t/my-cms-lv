@@ -18,13 +18,28 @@
           <li class="nav-item d-flex align-items-center">
             <a class="btn btn-outline-primary btn-sm mb-0 me-3" target="_blank" href="https://www.creative-tim.com/builder/soft-ui?ref=navbar-dashboard">Online Builder</a>
           </li>
-          <li class="nav-item d-flex align-items-center">
-            <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
+          <li class="nav-item d-flex align-items-center dropdown">
+            <a href="javascript:;" class="nav-link text-body font-weight-bold px-0"  id="profile_menu" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="fa fa-user me-sm-1"></i>
-              <span class="d-sm-inline d-none">Sign In</span>
+              <span class="d-sm-inline d-none">{{ optional(Auth::guard('admin')->user())->name }}</span>
             </a>
+            <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="profile_menu">
+                <li class="mb-2">
+                    <a href="{{ route('admin.user.admin.profile') }}" class="dropdown-item border-radius-m">{{ __('Profile') }}</a>
+                </li>
+                <li class="mb-2">
+                    <a href="{{ route('admin.user.admin.profile.password.change') }}" class="dropdown-item border-radius-m">{{ __('Password Change') }}</a>
+                </li>
+                <li class="mb-2">
+                    <a class="dropdown-item border-radius-m" href="{{ route('admin.logout') }}" onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+                    <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </li>
+            </ul>
           </li>
-          <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+          {{-- <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
             <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
               <div class="sidenav-toggler-inner">
                 <i class="sidenav-toggler-line"></i>
@@ -32,17 +47,17 @@
                 <i class="sidenav-toggler-line"></i>
               </div>
             </a>
-          </li>
-          <li class="nav-item px-3 d-flex align-items-center">
+          </li> --}}
+          {{-- <li class="nav-item px-3 d-flex align-items-center">
             <a href="javascript:;" class="nav-link text-body p-0">
               <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
             </a>
-          </li>
-          <li class="nav-item dropdown pe-2 d-flex align-items-center">
+          </li> --}}
+          {{-- <li class="nav-item dropdown pe-2 d-flex align-items-center">
             <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="fa fa-bell cursor-pointer"></i>
             </a>
-            <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
+            {{-- <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
               <li class="mb-2">
                 <a class="dropdown-item border-radius-md" href="javascript:;">
                   <div class="d-flex py-1">
@@ -109,7 +124,7 @@
                   </div>
                 </a>
               </li>
-            </ul>
+            </ul> --}}
           </li>
         </ul>
       </div>

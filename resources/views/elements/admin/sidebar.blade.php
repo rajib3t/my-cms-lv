@@ -34,7 +34,7 @@
             <h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder opacity-6">{{ __('Users') }}</h6>
         </li>
         <li class="nav-item">
-            <a data-bs-toggle="collapse" href="#users" class="nav-link {{ NavHelper::navActive($route,['admin.user.admin.list','admin.user.admin.create','admin.user.admin.edit']) }}" aria-controls="users" role="button" aria-expanded="{{ NavHelper::navExpand($route,['admin.user.admin.list','admin.user.admin.create','admin.user.admin.edit']) }}">
+            <a data-bs-toggle="collapse" href="#users" class="nav-link {{ NavHelper::navActive($route,['admin.user.admin.list','admin.user.admin.create','admin.user.admin.edit','admin.user.admin.password.change','admin.user.admin.trash']) }}" aria-controls="users" role="button" aria-expanded="{{ NavHelper::navExpand($route,['admin.user.admin.list','admin.user.admin.create','admin.user.admin.edit','admin.user.admin.password.change','admin.user.admin.trash']) }}">
                 <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center d-flex align-items-center justify-content-center  me-2">
                     <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	                    viewBox="0 0 511.996 511.996" style="enable-background:new 0 0 511.996 511.996;" xml:space="preserve">
@@ -48,14 +48,14 @@
                 </div>
                 <span class="nav-link-text ms-1">{{ __('Users') }}</span>
             </a>
-            <div class="collapse {{ NavHelper::navOpen($route,['admin.user.admin.list','admin.user.admin.create','admin.user.admin.edit']) }}" id="users" style="">
+            <div class="collapse {{ NavHelper::navOpen($route,['admin.user.admin.list','admin.user.admin.create','admin.user.admin.edit','admin.user.admin.password.change','admin.user.admin.trash']) }}" id="users" style="">
                 <ul class="nav ms-4 ps-3">
                     <li class="nav-item  ">
-                        <a class="nav-link {{ NavHelper::navActive($route,['admin.user.admin.list','admin.user.admin.create','admin.user.admin.edit']) }}" data-bs-toggle="collapse" aria-expanded="{{ NavHelper::navExpand($route,['admin.user.admin.list','admin.user.admin.create','admin.user.admin.edit']) }}" href="#admins">
+                        <a class="nav-link {{ NavHelper::navActive($route,['admin.user.admin.list','admin.user.admin.create','admin.user.admin.edit','admin.user.admin.password.change','admin.user.admin.trash']) }}" data-bs-toggle="collapse" aria-expanded="{{ NavHelper::navExpand($route,['admin.user.admin.list','admin.user.admin.create','admin.user.admin.edit','admin.user.admin.password.change','admin.user.admin.trash']) }}" href="#admins">
 
                             <span class="sidenav-normal">{{ __('Admins') }}</span>
                         </a>
-                        <div class="collapse {{ NavHelper::navOpen($route,['admin.user.admin.list','admin.user.admin.create','admin.user.admin.edit']) }}" id="admins" style="">
+                        <div class="collapse {{ NavHelper::navOpen($route,['admin.user.admin.list','admin.user.admin.create','admin.user.admin.edit','admin.user.admin.password.change','admin.user.admin.trash']) }}" id="admins" style="">
                             <ul class="nav nav-sm flex-column">
 
                                     <li class="nav-item">
@@ -67,6 +67,11 @@
                                     <li class="nav-item">
                                         <a class="nav-link {{ NavHelper::linkActive($route,'admin.user.admin.create') }}" href="{{ route('admin.user.admin.create') }}"  >
                                             {{ __('Create') }}
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ NavHelper::linkActive($route,'admin.user.admin.trash') }}" href="{{ route('admin.user.admin.trash') }}"  >
+                                            {{ __('Trash') }}
                                         </a>
                                     </li>
 

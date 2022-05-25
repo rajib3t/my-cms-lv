@@ -9,15 +9,23 @@
                 <div class="card-header pb-0">
                     <div class="row">
                         <h6 class="col  d-flex flex-row ">{{ __('Admin User Password Change') }}</h6>
-                        <a href="{{ route('admin.user.admin.edit',$user->id) }}" class="text-info col  d-flex flex-row-reverse"><span>{{ __('Edit Admin User') }}</span></a>
+                        <a href="{{ route('admin.user.admin.profile') }}" class="text-info col  d-flex flex-row-reverse"><span>{{ __('Profile') }}</span></a>
 
                     </div>
 
 
                 </div>
                 <div class="card-body ">
-                    {{ Form::open(['route'=>['admin.user.admin.password.update',$user->id],'method'=>'POST','id'=>'user_change_password']) }}
+                    {{ Form::open(['route'=>['admin.user.admin.profile.password.update'],'method'=>'POST','id'=>'user_change_password']) }}
 
+                        <div class="row p-2">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ Form::label('old_password','Old Password') }}
+                                    {{ Form::password('old_password',$errors->has('password')?['id'=>'old_password','class'=>'form-control is-invalid','placeholder'=>'Old Password']:['id'=>'old_password','class'=>'form-control','placeholder'=>'Old Password']) }}
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="row p-2">
 
@@ -62,6 +70,13 @@
                                 successFieldCssClass:'is-valid'
                             });
                             validation
+                            .addField('#old_password', [
+                                {
+                                    rule: 'required',
+                                }
+
+
+                            ])
                             .addField('#password', [
                                 {
                                     rule: 'required',
@@ -93,7 +108,10 @@
 
                             ])
                             .onSuccess((event)=>{
-                                document.getElementById('user_change_password').submit();
+                                setTimeout(() => {
+                                    document.getElementById('user_change_password').submit();
+                                }, 2000);
+
 
                         })
 

@@ -50,11 +50,15 @@
             </div>
         </div>
     </div>
-    @push('css')
+    @push('css-vendor')
         {{ Html::style('admin-design/assets/css/pnotify.css') }}
+        {{ Html::style('admin-design/assets/css/BrightTheme.css') }}
+    @endpush
+    @push('js-vendor')
+        {{ Html::script('admin-design/assets/js/pnotify.js') }}
     @endpush
     @push('js')
-        {{ Html::script('admin-design/assets/js/pnotify.js') }}
+
 
 
 

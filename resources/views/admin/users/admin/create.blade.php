@@ -160,7 +160,10 @@
 
                             ])
                             .onSuccess((event)=>{
-                            document.getElementById('create_user').submit();
+                                setTimeout(() => {
+                                    document.getElementById('create_user').submit();
+                                }, 2000);
+
 
                         })
                 })
