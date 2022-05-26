@@ -59,4 +59,15 @@ class Admin extends Authenticatable
     {
         $this->notify(new AdminResetPasswordNotification($token));
     }
+
+    /**
+     * Get the settings for the admin.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+
+    public function settings()
+    {
+        return $this->hasMany(AdminUserSetting::class);
+    }
 }

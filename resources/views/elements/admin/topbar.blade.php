@@ -31,6 +31,9 @@
                     <a href="{{ route('admin.user.admin.profile.password.change') }}" class="dropdown-item border-radius-m">{{ __('Password Change') }}</a>
                 </li>
                 <li class="mb-2">
+                    <a href="{{ route('admin.user.admin.setting.general') }}" class="dropdown-item border-radius-m">{{ __('Setting') }}</a>
+                </li>
+                <li class="mb-2">
                     <a class="dropdown-item border-radius-m" href="{{ route('admin.logout') }}" onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
                     <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">

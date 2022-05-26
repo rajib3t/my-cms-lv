@@ -20,6 +20,7 @@
     {{ Html::script('https://kit.fontawesome.com/42d5adcbca.js',['crossorigin'=>'anonymous']) }}
     {{-- CSS Style --}}
     {{ Html::style('admin-design/assets/css/soft-ui-dashboard.css',['media'=>false,'ver'=>'1.0']) }}
+    {{ Html::style('admin-design/assets/css/theme-custom.css',['media'=>false,'ver'=>'1.0']) }}
     {{-- CSS Vendor --}}
     @stack('css-vendor')
     {{-- Page Specific CSS Script--}}
@@ -71,6 +72,7 @@
     {{ Html::script('admin-design/assets/js/core/bootstrap.min.js') }}
     {{ Html::script('admin-design/assets/js/plugins/perfect-scrollbar.min.js') }}
     {{ Html::script('admin-design/assets/js/plugins/smooth-scrollbar.min.js') }}
+    {{ Html::script('admin-design/assets/js/soft-ui-dashboard.js') }}
     {{-- JS Vendor --}}
     @stack('js-vendor')
     {{-- Page Specific JS Script--}}

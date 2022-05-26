@@ -65,4 +65,11 @@ class NavHelper
             </li>
         <?php endfor;
     }
+
+    public function tabActive($current,$slug)
+    {
+        if($current == $slug){
+            return 'tab-active';
+        }
+    }
 }

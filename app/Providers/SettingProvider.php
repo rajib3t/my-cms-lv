@@ -18,6 +18,14 @@ class SettingProvider extends ServiceProvider
         App::bind('NavHelper',function(){
             return new \App\Helpers\NavHelper;
         });
+        //Bind OptionHelper
+        App::bind('OptionHelper',function(){
+            return new \App\Helpers\OptionHelper;
+        });
+        //Bind Setting
+        App::bind('Setting',function(){
+            return new \App\Services\SettingService;
+        });
     }
 
     /**

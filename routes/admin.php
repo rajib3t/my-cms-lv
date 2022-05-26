@@ -5,8 +5,10 @@ use Spatie\Permission\Contracts\Role;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\AdminSetttingController;
 use App\Http\Controllers\Admin\Auth\AdminLoginController;
 use App\Http\Controllers\Admin\Auth\AdminResetPasswordController;
 use App\Http\Controllers\Admin\Auth\AdminForgetPasswordController;
@@ -169,5 +171,36 @@ Route::group(['as' => 'admin.'],  function() {
             Route::post('/profile/password-update','update_password')
             ->name('profile.password.update')->middleware(['password.confirm:admin.password.confirm']);
         });
+        /**
+         * Application settings
+         */
+        Route::group([
+            'as'=>'setting.',
+            'prefix'=>'settings',
+            'controller'=>SettingController::class,
+        ],function(){
+            Route::get('/','index')
+            ->name('general')->middleware(['role:Super Admin','permission:settings.general','password.confirm:admin.password.confirm']);
+            Route::post('/gereral-update','update_general')
+            ->name('general.update')->middleware(['role:Super Admin','permission:settings.general.update','password.confirm:admin.password.confirm']);
+            Route::get('/miscellaneous','miscellaneous_settings')
+            ->name('miscellaneous')->middleware(['role:Super Admin','permission:settings.miscellaneous']);
+            Route::post('/miscellaneous-update','update_miscellaneous')
+            ->name('miscellaneous.update')->middleware(['role:Super Admin','permission:settings.miscellaneous.update','password.confirm:admin.password.confirm']);
+        });
+        /**
+         * Userwise  settings
+         */
+        Route::group([
+            'as'=>'user.admin.setting.',
+            'prefix'=>'user/settings',
+            'controller'=>AdminSetttingController::class,
+        ],function(){
+            Route::get('general','general_settings')
+            ->name('general')->middleware(['role:Super Admin','permission:user.settings.general','password.confirm:admin.password.confirm']);
+            Route::post('general-update','general_settings_update')
+            ->name('general.update')->middleware(['role:Super Admin','permission:user.settings.general.update','password.confirm:admin.password.confirm']);
+        });
+
     });
 });

@@ -214,6 +214,8 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
         'NavHelper'=>App\Facades\NavHelper::class,
+        'OptionHelper'=>App\Facades\OptionHelper::class,
+        'Setting'=>App\Facades\SettingFacade::class,
     ])->toArray(),
 
 ];
