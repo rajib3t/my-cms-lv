@@ -28,4 +28,11 @@ class Samithi extends Model
     {
         return $this->morphOne(Address::class, 'addressable');
     }
+    /**
+     * Get the district for the samithi.
+     */
+    public function district()
+    {
+        return $this->belongsTo(District::class);
+    }
 }

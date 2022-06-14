@@ -39,6 +39,9 @@
             'admin.organisation.district.edit',
             'admin.organisation.district.trash',
             'admin.organisation.samithi.list',
+            'admin.organisation.samithi.create',
+            'admin.organisation.samithi.edit',
+            'admin.organisation.samithi.trash',
             ])
         <li class="nav-item ">
           <a data-bs-toggle="collapse" href="#organisations"  class="nav-link {{ NavHelper::linkActive($route,$organisations) }}" aria-controls="organisations" role="button" aria-expanded="{{ NavHelper::navExpand($route,$organisations) }}">
@@ -84,6 +87,9 @@
                     </li>
                     @php($samithies = [
                     'admin.organisation.samithi.list',
+                    'admin.organisation.samithi.create',
+                    'admin.organisation.samithi.edit',
+                    'admin.organisation.samithi.trash'
                     ])
                     <li class="nav-item">
                         <a class="nav-link {{ NavHelper::navActive($route,$samithies)}}"data-bs-toggle="collapse" aria-expanded="{{ NavHelper::navExpand($route,$samithies) }}" href="#samithies" >
@@ -94,6 +100,16 @@
                                 <li class="nav-item">
                                     <a class="nav-link {{ NavHelper::linkActive($route,'admin.organisation.samithi.list') }}" href="{{ route('admin.organisation.samithi.list') }}"  >
                                         {{ __('List') }}
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ NavHelper::linkActive($route,'admin.organisation.samithi.create') }}" href="{{ route('admin.organisation.samithi.create') }}"  >
+                                        {{ __('Create') }}
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ NavHelper::linkActive($route,'admin.organisation.samithi.trash') }}" href="{{ route('admin.organisation.samithi.trash') }}"  >
+                                        {{ __('Trash') }}
                                     </a>
                                 </li>
                             </ul>

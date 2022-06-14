@@ -54,7 +54,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ Form::label('district','District') }}
-                                {{ Form::text('district',null,$errors->has('state')?['id'=>'district','class'=>'form-control is-invalid','placeholder'=>'Nadia']:['id'=>'district','class'=>'form-control','placeholder'=>'Nadia']) }}
+                                {{ Form::text('district',null,$errors->has('state')?['id'=>'district','class'=>'form-control is-invalid','placeholder'=>'Nadia','readonly']:['readonly','id'=>'district','class'=>'form-control','placeholder'=>'Nadia']) }}
                             </div>
                         </div>
                         <div class="col-md-6">

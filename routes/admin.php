@@ -226,7 +226,7 @@ Route::group(['as' => 'admin.'],  function() {
                 ->name('edit')->middleware(['permission:organisation.district.edit']);
                 Route::put('/update/{id}','update')
                 ->name('update')->middleware(['permission:organisation.district.update']);
-                Route::get('/delete/{id}','destroy')
+                Route::post('/delete/{id}','destroy')
                 ->name('delete')->middleware(['permission:organisation.district.delete']);
                 Route::get('/trash','trashed')
                 ->name('trash')->middleware(['permission:organisation.district.trash']);
@@ -248,8 +248,12 @@ Route::group(['as' => 'admin.'],  function() {
                     ->name('edit')->middleware(['permission:organisation.samithi.edit']);
                     Route::put('/update/{id}','update')
                     ->name('update')->middleware(['permission:organisation.samithi.update']);
-                    Route::get('/delete/{id}','destroy')
+                    Route::post('/delete/{id}','destroy')
                     ->name('delete')->middleware(['permission:organisation.samithi.delete']);
+                    Route::get('trash','trashed')
+                    ->name('trash')->middleware(['permission:organisation.samithi.trash']);
+                    Route::post('/restore/{id}','restore')
+                    ->name('restore')->middleware(['permission:organisation.samithi.restore']);
                 });
         });
 

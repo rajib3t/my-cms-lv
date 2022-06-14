@@ -33,8 +33,11 @@
                                         <td class="text-xs text-secondary">{{ $item->slug }}</td>
                                         <td class="text-xs text-secondary">
                                             <a href="{{ route('admin.organisation.district.edit',$item->id) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit District" class="p-1 text-secondary font-weight-bold text-xs text-info"><i class="fas fa-edit"></i></a>
-                                            <a href="{{ route('admin.organisation.district.delete',$item->id) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete District" class="p-1 text-secondary font-weight-bold text-xs text-danger"><i class="fas fa-trash-alt"></i></a>
-
+                                            <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete District" class="p-1 text-secondary font-weight-bold text-xs text-danger" onclick="event.preventDefault();
+                                            document.getElementById('delete-form-{{ $item->id }}').submit();"><i class="fas fa-trash-alt"></i></a>
+                                            <form id="delete-form-{{ $item->id }}" action="{{ route('admin.organisation.district.delete', $item->id) }}" method="post" style="display: none;">
+                                                @csrf
+                                            </form>
                                         </td>
                                     </tr>
                                 @empty

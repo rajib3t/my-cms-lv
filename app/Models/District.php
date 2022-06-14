@@ -29,4 +29,9 @@ class District extends Model
         return $this->morphOne(Address::class, 'addressable');
     }
 
+    public function samithi()
+    {
+        return $this->hasMany(Samithi::class);
+    }
+
 }

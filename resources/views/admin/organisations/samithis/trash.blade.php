@@ -31,10 +31,10 @@
                                         <td class="text-sm">{{ $samithi->name }}</td>
                                         <td class="text-sm">{{ $samithi->district()->first()->name }}</td>
                                         <td class="text-sm">
-                                            <a href="{{ route('admin.organisation.samithi.edit', $samithi->id) }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Samithi" class="p-1 text-secondary font-weight-bold text-xs text-info"><i class="fas fa-edit"></i></a>
-                                            <a href="" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Samithi" class="p-1 text-secondary font-weight-bold text-xs text-danger" onclick="event.preventDefault();
-                                            document.getElementById('delete-form-{{ $samithi->id }}').submit();"><i class="fas fa-trash"></i></a>
-                                            <form id="delete-form-{{ $samithi->id }}" action="{{ route('admin.organisation.samithi.delete', $samithi->id) }}" method="post" style="display: none;">
+
+                                            <a href="" data-bs-toggle="tooltip" data-bs-placement="top" title="Restore Samithi" class="p-1 text-secondary font-weight-bold text-xs text-success" onclick="event.preventDefault();
+                                            document.getElementById('delete-form-{{ $samithi->id }}').submit();"><i class="fas fa-trash-restore"></i></a>
+                                            <form id="delete-form-{{  $samithi->id  }}" action="{{ route('admin.organisation.samithi.restore', $samithi->id) }}" method="post" style="display: none;">
                                                 @csrf
                                             </form>
 

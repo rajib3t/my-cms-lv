@@ -43,16 +43,20 @@ class DistrictController extends Controller
         $data = [
             'name' => $request->name,
             'code' => $request->code,
-            'address_line_1' => $request->address_line_1,
-            'address_line_2' => $request->address_line_2,
-            'city' => $request->city,
-            'district' => $request->district,
-            'postal_code' => $request->postal_code,
             'slug'=>Slug::district($request->name),
         ];
 
         $district = District::create($data);
+
         if($district){
+            $address = [
+                'address_line_1' => $request->address_line_1,
+                'address_line_2' => $request->address_line_2,
+                'city' => $request->city,
+                'district' => $request->district,
+                'postal_code' => $request->postal_code,
+            ];
+            $district->address()->create($address);
             return redirect()->route('admin.organisation.district.list')->with('success','District created successfully');
         }else{
             return back()->withErrors([
