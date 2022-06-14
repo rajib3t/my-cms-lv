@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\DistrictController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\AdminSetttingController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\Admin\Auth\AdminLoginController;
 use App\Http\Controllers\Admin\Auth\AdminResetPasswordController;
 use App\Http\Controllers\Admin\Auth\AdminForgetPasswordController;
 use App\Http\Controllers\Admin\Auth\AdminConfirmPasswordController;
+use App\Http\Controllers\Admin\SamithiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -200,6 +202,55 @@ Route::group(['as' => 'admin.'],  function() {
             ->name('general')->middleware(['role:Super Admin','permission:user.settings.general','password.confirm:admin.password.confirm']);
             Route::post('general-update','general_settings_update')
             ->name('general.update')->middleware(['role:Super Admin','permission:user.settings.general.update','password.confirm:admin.password.confirm']);
+        });
+
+        /**
+         * For Sri Sathya Sai Seva Organisation
+         */
+        Route::group([
+            'as'=>'organisation.',
+            'prefix'=>'organisation',
+        ],function(){
+            Route::group([
+                'as'=>'district.',
+                'prefix'=>'districts',
+                'controller'=>DistrictController::class,
+            ],function(){
+                Route::get('/','index')
+                ->name('list')->middleware(['permission:organisation.district.list']);
+                Route::get('/create','create')
+                ->name('create')->middleware(['permission:organisation.district.create']);
+                Route::post('/store','store')
+                ->name('store')->middleware(['permission:organisation.district.store']);
+                Route::get('/edit/{id}','edit')
+                ->name('edit')->middleware(['permission:organisation.district.edit']);
+                Route::put('/update/{id}','update')
+                ->name('update')->middleware(['permission:organisation.district.update']);
+                Route::get('/delete/{id}','destroy')
+                ->name('delete')->middleware(['permission:organisation.district.delete']);
+                Route::get('/trash','trashed')
+                ->name('trash')->middleware(['permission:organisation.district.trash']);
+                Route::get('/restore/{id}','restore')
+                ->name('restore')->middleware(['permission:organisation.district.restore']);
+            });
+            Route::group([
+                'as'=>'samithi.',
+                'prefix'=>'samithis',
+                'controller'=>SamithiController::class,
+                ],function(){
+                    Route::get('/','index')
+                    ->name('list')->middleware(['permission:organisation.samithi.list']);
+                    Route::get('/create','create')
+                    ->name('create')->middleware(['permission:organisation.samithi.create']);
+                    Route::post('/store','store')
+                    ->name('store')->middleware(['permission:organisation.samithi.store']);
+                    Route::get('/edit/{id}','edit')
+                    ->name('edit')->middleware(['permission:organisation.samithi.edit']);
+                    Route::put('/update/{id}','update')
+                    ->name('update')->middleware(['permission:organisation.samithi.update']);
+                    Route::get('/delete/{id}','destroy')
+                    ->name('delete')->middleware(['permission:organisation.samithi.delete']);
+                });
         });
 
     });

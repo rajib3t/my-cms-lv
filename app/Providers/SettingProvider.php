@@ -26,6 +26,10 @@ class SettingProvider extends ServiceProvider
         App::bind('Setting',function(){
             return new \App\Services\SettingService;
         });
+        //Bind Slug
+        App::bind('Slug',function(){
+            return new \App\Helpers\SlugHelper;
+        });
     }
 
     /**

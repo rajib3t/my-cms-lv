@@ -30,6 +30,78 @@
             <span class="nav-link-text ms-1">{{ __('Dashboard') }}</span>
           </a>
         </li>
+        <li class="nav-item mt-3">
+            <h6 class="ps-4  ms-2 text-uppercase text-xs font-weight-bolder opacity-6">{{ __('Organisations') }}</h6>
+        </li>
+        @php($organisations = [
+            'admin.organisation.district.list',
+            'admin.organisation.district.create',
+            'admin.organisation.district.edit',
+            'admin.organisation.district.trash',
+            'admin.organisation.samithi.list',
+            ])
+        <li class="nav-item ">
+          <a data-bs-toggle="collapse" href="#organisations"  class="nav-link {{ NavHelper::linkActive($route,$organisations) }}" aria-controls="organisations" role="button" aria-expanded="{{ NavHelper::navExpand($route,$organisations) }}">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+               <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><title>image-personnel-staff-crew-appearance-company-organization</title><path d="M6.09027,8.07672a.09147.09147,0,0,0-.18054,0,3.74934,3.74934,0,0,1-2.83295,2.833.09149.09149,0,0,0,0,.1806,3.74942,3.74942,0,0,1,2.833,2.833.09146.09146,0,0,0,.18054,0,3.74942,3.74942,0,0,1,2.833-2.833.09149.09149,0,0,0,0-.1806A3.74934,3.74934,0,0,1,6.09027,8.07672Z"/><path d="M60.92322,16.90967a3.74934,3.74934,0,0,1-2.833-2.83295.09147.09147,0,0,0-.18054,0,3.74934,3.74934,0,0,1-2.833,2.83295.09149.09149,0,0,0,0,.1806,3.74942,3.74942,0,0,1,2.833,2.833.09146.09146,0,0,0,.18054,0,3.74942,3.74942,0,0,1,2.833-2.833A.09149.09149,0,0,0,60.92322,16.90967Z"/><path d="M3,62H61V51.647C61,48.00848,56.52283,46,51,46c-4.43555,0-8.191,1.2981-9.5,3.693C40.191,47.2981,36.43555,46,32,46s-8.191,1.2981-9.5,3.693C21.191,47.2981,17.43555,46,13,46,7.47717,46,3,48.00848,3,51.647Z"/><circle cx="13" cy="40" r="6"/><path d="M13,32a7.98919,7.98919,0,0,1,6.26117,12.96515A10.82533,10.82533,0,0,1,22.504,46.6889a10.84985,10.84985,0,0,1,3.23565-1.72271,8,8,0,1,1,12.52076,0A10.84985,10.84985,0,0,1,41.496,46.6889a10.82533,10.82533,0,0,1,3.2428-1.72375A7.98919,7.98919,0,0,1,51,32V2H13ZM45,6h2V8H45Zm0,4h2v2H45Zm0,4h2v2H45Zm0,4h2v2H45Zm0,4h2v2H45Zm0,4h2v2H45ZM41,6h2V8H41Zm0,4h2v2H41Zm0,4h2v2H41Zm0,4h2v2H41Zm0,4h2v2H41Zm0,4h2v2H41ZM31,28H29V26h2Zm0-4H29V22h2Zm4,4H33V26h2Zm0-4H33V22h2Zm4,4H37V26h2Zm0-4H37V22h2ZM30.13678,10.96021,31.93384,7,33.845,10.90131,38,11.46576l-2.95563,3.1073.77094,4.30908-3.7378-1.98083L28.39886,19l.64551-4.3316L26,11.65637ZM25,22h2v2H25Zm0,4h2v2H25ZM21,6h2V8H21Zm0,4h2v2H21Zm0,4h2v2H21Zm0,4h2v2H21Zm0,4h2v2H21Zm0,4h2v2H21ZM17,6h2V8H17Zm0,4h2v2H17Zm0,4h2v2H17Zm0,4h2v2H17Zm0,4h2v2H17Zm0,4h2v2H17Z"/><circle cx="32" cy="40" r="6"/><circle cx="51" cy="40" r="6"/></svg>
+            </div>
+            <span class="nav-link-text ms-1">{{ __('Organisations') }}</span>
+            </a>
+            <div class="collapse {{ NavHelper::navOpen($route,$organisations) }}" id="organisations" style="">
+
+                <ul class="nav ms-4 ps-3">
+                    @php($districts = [
+                    'admin.organisation.district.list',
+                    'admin.organisation.district.create',
+                    'admin.organisation.district.edit',
+                    'admin.organisation.district.trash'
+                    ])
+                    <li class="nav-item  ">
+                        <a class="nav-link  {{ NavHelper::navActive($route,$districts)}}" data-bs-toggle="collapse" aria-expanded="{{ NavHelper::navExpand($route,$districts) }}" href="#districts">
+
+                            <span class="sidenav-normal">{{ __('Districts') }}</span>
+                        </a>
+                        <div class="collapse {{ NavHelper::navOpen($route,$districts) }}" id="districts" style="">
+                            <ul class="nav nav-sm flex-column">
+
+                                <li class="nav-item">
+                                    <a class="nav-link {{ NavHelper::linkActive($route,'admin.organisation.district.list') }}" href="{{ route('admin.organisation.district.list') }}"  >
+                                        {{ __('List') }}
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ NavHelper::linkActive($route,'admin.organisation.district.create') }}" href="{{ route('admin.organisation.district.create') }}"  >
+                                        {{ __('Create') }}
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{ NavHelper::linkActive($route,'admin.organisation.district.trash') }}" href="{{ route('admin.organisation.district.trash') }}"  >
+                                        {{ __('Trash') }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    @php($samithies = [
+                    'admin.organisation.samithi.list',
+                    ])
+                    <li class="nav-item">
+                        <a class="nav-link {{ NavHelper::navActive($route,$samithies)}}"data-bs-toggle="collapse" aria-expanded="{{ NavHelper::navExpand($route,$samithies) }}" href="#samithies" >
+                            <span class="sidenav-normal">{{ __('Samithis') }}</span>
+                        </a>
+                        <div class="collapse {{ NavHelper::navOpen($route,$samithies) }}" id="samithies" style="">
+                            <ul class="nav nav-sm flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link {{ NavHelper::linkActive($route,'admin.organisation.samithi.list') }}" href="{{ route('admin.organisation.samithi.list') }}"  >
+                                        {{ __('List') }}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </li>
         <li class="nav-item {{ NavHelper::navActive($route,['admin.setting.general','admin.setting.miscellaneous']) }}">
             <a class="nav-link {{ NavHelper::navActive($route,['admin.setting.general','admin.setting.miscellaneous']) }}" href="{{ route('admin.setting.general') }}">
               <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">

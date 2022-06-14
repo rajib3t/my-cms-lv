@@ -216,6 +216,7 @@ return [
         'NavHelper'=>App\Facades\NavHelper::class,
         'OptionHelper'=>App\Facades\OptionHelper::class,
         'Setting'=>App\Facades\SettingFacade::class,
+        'Slug'=>App\Facades\SlugFacade::class,
     ])->toArray(),
 
 ];
